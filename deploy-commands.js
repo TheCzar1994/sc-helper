@@ -5,7 +5,15 @@ const fs = require("node:fs");
 const path = require("node:path");
 const token = process.env.TOKEN;
 const clientId = process.env.CLIENT_ID;
-const guildIds = process.env.GUILD_IDS.split(",");
+
+if (!process.env.GUILD_IDS) {
+  console.error("Missing GUILD_IDS environment variable in .env");
+  process.exit(1);
+}
+
+const guildIds = process.env.GUILD_IDS.split(",").map((guildId) =>
+  guildId.trim()
+);
 
 const commands = [];
 const commandsPath = path.join(__dirname, "commands");
@@ -33,13 +41,12 @@ const rest = new REST({ version: "10" }).setToken(token);
     );
 
     for (const guildId of guildIds) {
-      const trimmedGuildId = guildId.trim();
       const data = await rest.put(
-        Routes.applicationGuildCommands(clientId, trimmedGuildId),
+        Routes.applicationGuildCommands(clientId, guildId),
         { body: commands }
       );
       console.log(
-        `Successfully reloaded ${data.length} application (/) commands for guild ${trimmedGuildId}.`
+        `Successfully reloaded ${data.length} application (/) commands for guild ${guildId}.`
       );
     }
 
