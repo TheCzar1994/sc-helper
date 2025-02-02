@@ -11,9 +11,8 @@ if (!process.env.GUILD_IDS) {
   process.exit(1);
 }
 
-const guildIds = process.env.GUILD_IDS.split(",").map((guildId) =>
-  guildId.trim()
-);
+const guildIds = process.env.GUILD_IDS.split(",").map((id) => id.trim());
+console.log("Guild IDs:", guildIds);
 
 const commands = [];
 const commandsPath = path.join(__dirname, "commands");
@@ -41,6 +40,11 @@ const rest = new REST({ version: "10" }).setToken(token);
     );
 
     for (const guildId of guildIds) {
+      if (!guildId) {
+        console.error("Encountered an empty guild ID, skipping.");
+        continue;
+      }
+
       const data = await rest.put(
         Routes.applicationGuildCommands(clientId, guildId),
         { body: commands }
