@@ -44,7 +44,9 @@ module.exports = {
       secondaryChannel = await interaction.client.channels.fetch(secondary);
     } catch (error) {
       console.error("Error fetching channels:", error);
-      await interaction.editReply("Error fetching one or both channels.");
+      await interaction.editReply({
+        content: "Error fetching one or both channels.",
+      });
       return;
     }
 
@@ -54,7 +56,9 @@ module.exports = {
       secondaryMessages = await secondaryChannel.messages.fetch({ limit: 100 });
     } catch (error) {
       console.error("Error fetching messages:", error);
-      await interaction.editReply("Error fetching messages from channels.");
+      await interaction.editReply({
+        content: "Error fetching messages from channels.",
+      });
       return;
     }
 
@@ -99,9 +103,10 @@ module.exports = {
     }
 
     if (validMaps.length === 0) {
-      await interaction.editReply(
-        "No valid maps found in the suggestions channel that haven't already won."
-      );
+      await interaction.editReply({
+        content:
+          "No valid maps found in the suggestions channel that haven't already won.",
+      });
     } else {
       let replyMessage = `Found **${
         validMaps.length
@@ -113,7 +118,7 @@ module.exports = {
         replyMessage += `**Map Name & Uploader:** ${map.mapName} - ${map.uploaderName}\n`;
         replyMessage += `**Link:** <${map.originalLink}>\n\n`;
       });
-      await interaction.editReply(replyMessage);
+      await interaction.editReply({ content: replyMessage });
     }
   },
 };
