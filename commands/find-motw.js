@@ -93,6 +93,9 @@ module.exports = {
               key: mapKey,
               mapName: data.name || "Unknown Name",
               uploaderName: data.uploader?.name || "Unknown Uploader",
+              collaborators: data.collaborators
+                ? data.collaborators.name
+                : null,
               originalLink: `https://beatsaver.com/maps/${mapKey}`,
             });
           }
@@ -116,6 +119,9 @@ module.exports = {
       validMaps.forEach((map) => {
         replyMessage += `**Key:** ${map.key}\n`;
         replyMessage += `**Map Name & Uploader:** ${map.mapName} - ${map.uploaderName}\n`;
+        if (map.collaborators) {
+          replyMessage += `**Collaborators:** ${map.collaborators}\n`;
+        }
         replyMessage += `**Link:** <${map.originalLink}>\n\n`;
       });
       await interaction.editReply({ content: replyMessage });
