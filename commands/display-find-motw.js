@@ -1,3 +1,8 @@
+function escapeMarkdown(text) {
+  // Escape common Markdown characters: *, _, `, ~
+  return text.replace(/([*_`~])/g, "\\$1");
+}
+
 const { SlashCommandBuilder } = require("discord.js");
 const guildSettings = require("../settings");
 
@@ -88,8 +93,17 @@ module.exports = {
           if (timeDiff <= THIRTY_DAYS_MS) {
             validMaps.push({
               key: mapKey,
-              mapName: data.name || "Unknown Name",
-              uploaderName: data.uploader?.name || "Unknown Uploader",
+              mapName: data.name ? escapeMarkdown(data.name) : "Unknown Name",
+              uploaderName: data.uploader?.name
+                ? escapeMarkdown(data.uploader.name)
+                : "Unknown Uploader",
+              collaborators:
+                Array.isArray(data.collaborators) &&
+                data.collaborators.length > 0
+                  ? data.collaborators
+                      .map((c) => escapeMarkdown(c.name))
+                      .join(", ")
+                  : null,
               originalLink: `https://beatsaver.com/maps/${mapKey}`,
             });
           }
@@ -112,6 +126,9 @@ module.exports = {
       validMaps.forEach((map) => {
         replyMessage += `**Key:** ${map.key}\n`;
         replyMessage += `**Map Name & Uploader:** ${map.mapName} - ${map.uploaderName}\n`;
+        if (map.collaborators) {
+          replyMessage += `**Collaborators:** ${map.collaborators}\n`;
+        }
         replyMessage += `**Link:** <${map.originalLink}>\n\n`;
       });
       await interaction.editReply(replyMessage);
