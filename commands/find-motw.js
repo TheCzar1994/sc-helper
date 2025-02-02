@@ -107,7 +107,7 @@ module.exports = {
         validMaps.length
       }** valid Map of the Week suggestion${
         validMaps.length !== 1 ? "s" : ""
-      } for Map of the Week:\n\n`;
+      }:\n\n`;
       validMaps.forEach((map) => {
         replyMessage += `**Key:** ${map.key}\n`;
         replyMessage += `**Map Name & Uploader:** ${map.mapName} - ${map.uploaderName}\n`;
