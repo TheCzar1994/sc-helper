@@ -1,5 +1,5 @@
 {
-  "name": "discord-slash-bot",
+  "name": "sc-helper",
   "version": "1.0.0",
   "description": "A Discord bot that uses slash commands.",
   "main": "index.js",
@@ -7,7 +7,7 @@
     "start": "node index.js",
     "deploy": "node deploy-commands.js"
   },
-  "author": "Your Name",
+  "author": "TheCzar1994",
   "license": "MIT",
   "dependencies": {
     "discord.js": "^14.0.0",
