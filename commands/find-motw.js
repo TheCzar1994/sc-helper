@@ -93,9 +93,11 @@ module.exports = {
               key: mapKey,
               mapName: data.name || "Unknown Name",
               uploaderName: data.uploader?.name || "Unknown Uploader",
-              collaborators: data.collaborators
-                ? data.collaborators.name
-                : null,
+              collaborators:
+                Array.isArray(data.collaborators) &&
+                data.collaborators.length > 0
+                  ? data.collaborators.map((c) => c.name).join(", ")
+                  : null,
               originalLink: `https://beatsaver.com/maps/${mapKey}`,
             });
           }
