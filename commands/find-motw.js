@@ -52,8 +52,8 @@ module.exports = {
 
     let primaryMessages, secondaryMessages;
     try {
-      primaryMessages = await primaryChannel.messages.fetch({ limit: 100 });
-      secondaryMessages = await secondaryChannel.messages.fetch({ limit: 100 });
+      primaryMessages = await primaryChannel.messages.fetch({ limit: 20 });
+      secondaryMessages = await secondaryChannel.messages.fetch({ limit: 5 });
     } catch (error) {
       console.error("Error fetching messages:", error);
       await interaction.editReply({
