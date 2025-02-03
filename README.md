@@ -2,25 +2,34 @@
 
 This is a simple bot that is currently implemented to help SC's find eligible Map of the Week contenders.
 
-It works by checking a primary channel's last 20 messages for BeatSaver links, taking note of the map keys. It then searches those keys through the BeatSaver API to figure out if the map is less than 30 days old, as required for eligible Map of the Weeks. If it's more than 30 days old it discards it. If it's less than 30 days, it takes note of the map key, the title, and the uploader.
+It works by checking a primary channel's last 20 messages for BeatSaver links, taking note of the map keys. It then searches those keys through the BeatSaver API to figure out if the map in each message is less than 30 days old (as required for eligible Map of the Weeks). If it's more than 30 days old it discards it. If it's less than 30 days old, it takes note of the map key, title, the uploader, any collaborators, and the full link to the map.
 
-It then checks the secondary channel's last 5 messages for prior winners and discards those.
+It then checks the secondary channel's last 5 messages for prior winners by searching for the map keys noted previously and then discards those.
 
-Finally, it outputs the final listing of eligible Map of the Week contenders with the Key, the Map Name and Uploader, and a link to the map.
+Finally, it outputs the final listing of eligible Map of the Week contenders with the the Map Name and Uploader, collaborators if there are any, and a link to the map, with a total count at the top.
 
-There are 3 commands currently:
+There are currently 4 commands:
 
-1. `/find-motw` - This does exactly as stated above and outputs the message only to the user running the command
-2. `/display-find-motw` - The same as above but it displays to everyone in the channel it was run
-3. `/set-channels` - Determines the primary and secondary channels to search.
+1. `/find-motw` - This does exactly as stated above and outputs the message only to the user running the command.
+2. `/display-find-motw` - The same as above but it displays to everyone in the channel it was run.
+3. `/set-channels` - Sets the primary and secondary channels to search when using Command 1 or 2.
+4. `/check-status` - Simple command that tells you if your channels are set.
 
-# Outside Use
+## Outside Use
 
-You can fork the repository and use it for your own purposes if you want to. You will need to create your own `.env` file with configurations as appropriate.
+Not really sure what your outside use would be but you can fork the repository and use it for your own purposes if you want to. You will need to create your own `.env` file with configurations as appropriate. You'll also need to obtain your own Discord App Token, Client ID, and specify your Guild ID(s).
 
 ### Example `.env` file:
 
-For use with 1 server, you can use something like this:
+The default code has the ability to run the bot in more than 1 server. This would be your default `.env` file:
+
+```
+TOKEN=YOUR_DISCORD_APP_TOKEN
+CLIENT_ID=YOUR_CLIENT_ID
+GUILD_IDS=YOUR_DISCORD_GUILD_ID,ANOTHER_DISCORD_GUILD_ID_IF_NEEDED
+```
+
+For use with 1 server, you can use something like this but you'll need to do some minor code modifications:
 
 ```
 TOKEN=YOUR_DISCORD_APP_TOKEN
@@ -28,19 +37,13 @@ CLIENT_ID=YOUR_CLIENT_ID
 GUILD_ID=YOUR_DISCORD_GUILD_ID
 ```
 
-This also has the capability to run in more than 1 server. In that case, you'd just change "GUILD_ID" to "GUILD_IDS". So it would be something like this:
+The first example _should_ work even with just one guild ID, but I haven't tested that so 🤷‍♂️
 
-```
-TOKEN=YOUR_DISCORD_APP_TOKEN
-CLIENT_ID=YOUR_CLIENT_ID
-GUILD_IDS=YOUR_DISCORD_GUILD_ID
-```
+You will need to run the bot on your own server to maintain uptime - something like Amazon AWS EC2 on Ubuntu works well. Would also recommend installing pm2 and using that.
 
-You will need to run the bot on your own server to maintain uptime. Something like AmazonAWS EC2 on Ubuntu works well.
+## To Run:
 
-# To Run:
-
-To run this project, use `npm install` to install the dependencies.
+To run this project locally, use `npm install` to install the dependencies.
 
 Use `npm run deploy` to deploy slash commands.
 
