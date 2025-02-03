@@ -2,7 +2,10 @@ require("dotenv").config();
 
 const fs = require("node:fs");
 const path = require("node:path");
-const { Client, Collection, GatewayIntentBits } = require("discord.js");
+const { Client, Collection, GatewayIntentBits, ActivityType, PresenceUpdateStatus } = require("discord.js");
+
+// Set presence status by using client.user.setStatus(PresenceUpdateStatus.Online);
+// Can use Online, Idle, DoNotDisturb, Invisible
 
 const token = process.env.TOKEN;
 
@@ -31,7 +34,7 @@ for (const file of commandFiles) {
 
 client.once("ready", () => {
   console.log(`Logged in as ${client.user.tag}!`);
-  client.user.setActivity("with commands", { type: "PLAYING" });
+  client.user.setActivity('with commands');
 });
 
 client.on("interactionCreate", async (interaction) => {
