@@ -10,14 +10,15 @@ module.exports = {
 
     if (!guildSettings[guildId]) {
       await interaction.reply({
-        content: "Channels not set for this server. Use /set-channels first.",
+        content:
+          "Czar is messing with the settings again, please try again later! 🤖",
         ephemeral: true,
       });
       return;
     }
 
     await interaction.reply({
-      content: "All good G! 🫡",
+      content: "We all good, G! 🫡",
       ephemeral: true,
     });
   },
