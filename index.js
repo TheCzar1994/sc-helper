@@ -31,6 +31,7 @@ for (const file of commandFiles) {
 
 client.once("ready", () => {
   console.log(`Logged in as ${client.user.tag}!`);
+  client.user.setActivity("with commands", { type: "PLAYING" });
 });
 
 client.on("interactionCreate", async (interaction) => {
