@@ -124,7 +124,6 @@ module.exports = {
         validMaps.length !== 1 ? "s" : ""
       }:\n\n`;
       validMaps.forEach((map) => {
-        replyMessage += `**Key:** ${map.key}\n`;
         replyMessage += `**Map Name & Uploader:** ${map.mapName} - ${map.uploaderName}\n`;
         if (map.collaborators) {
           replyMessage += `**Collaborators:** ${map.collaborators}\n`;
