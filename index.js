@@ -51,6 +51,13 @@ client.once("ready", () => {
   });
 });
 
+client.on("messageCreate", (message) => {
+  if (message.author.bot) return;
+  if (message.mentions.has(client.user)) {
+    message.react("👋").catch(console.error);
+  }
+});
+
 client.on("interactionCreate", async (interaction) => {
   if (!interaction.isChatInputCommand()) return;
 
