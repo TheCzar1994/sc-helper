@@ -49,7 +49,7 @@ client.once("ready", () => {
       {
         type: ActivityType.Custom,
         name: "custom",
-        state: "Playing with commands",
+        state: "",
       },
     ],
   });
