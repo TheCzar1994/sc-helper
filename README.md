@@ -13,7 +13,7 @@ There are currently 4 commands:
 1. `/find-motw` - This does exactly as stated above and outputs the message only to the user running the command.
 2. `/display-find-motw` - The same as above but it displays to everyone in the channel it was run.
 3. `/set-channels` - Sets the primary and secondary channels to search when using Command 1 or 2.
-4. `/check-status` - Simple command that tells you if your channels are set.
+4. `/check-status` - Simple command that basically tells you if the channels are set without hitting the BeatSaver API
 
 ## Outside Use
 
