@@ -48,7 +48,7 @@ client.once("ready", () => {
     activities: [
       {
         type: ActivityType.Custom,
-        name: "custom",
+        name: "",
         state: "",
       },
     ],
