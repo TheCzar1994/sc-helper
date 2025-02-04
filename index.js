@@ -50,7 +50,6 @@ client.once("ready", () => {
         type: ActivityType.Custom,
         name: "custom",
         state: "Playing with commands",
-        emoji: { name: "kittyJam", id: "1336470651862781953" },
       },
     ],
   });
