@@ -93,6 +93,7 @@ module.exports = {
           const timeDiff = Date.now() - uploadedDate.getTime();
 
           if (timeDiff <= THIRTY_DAYS_MS) {
+            const daysOld = Math.floor(timeDiff / (1000 * 60 * 60 * 24));
             validMaps.push({
               key: mapKey,
               mapName: data.name ? escapeMarkdown(data.name) : "Unknown Name",
@@ -107,6 +108,8 @@ module.exports = {
                       .join(", ")
                   : null,
               originalLink: `https://beatsaver.com/maps/${mapKey}`,
+              uploadedDate,
+              daysOld,
             });
           }
         } catch (error) {
@@ -121,6 +124,7 @@ module.exports = {
           "No valid maps found in the suggestions channel that haven't already won.",
       });
     } else {
+      validMaps.sort((a, b) => b.daysOld - a.daysOld);
       let replyMessage = `Found **${
         validMaps.length
       }** valid Map of the Week suggestion${
@@ -131,7 +135,10 @@ module.exports = {
         if (map.collaborators) {
           replyMessage += `**Collaborators:** ${map.collaborators}\n`;
         }
-        replyMessage += `**Link:** <${map.originalLink}>\n\n`;
+        replyMessage += `**Link:** <${map.originalLink}>\n`;
+        replyMessage += `**Age:** ${map.daysOld} day${
+          map.daysOld !== 1 ? "s" : ""
+        } old\n\n`;
       });
       await interaction.editReply({ content: replyMessage });
     }
