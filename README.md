@@ -6,14 +6,14 @@ It works by checking a primary channel's last 20 messages for BeatSaver links, t
 
 It then checks the secondary channel's last 5 messages for prior winners by searching for the map keys noted previously and then discards those.
 
-Finally, it outputs the final listing of eligible Map of the Week contenders with the the Map Name and Uploader, collaborators if there are any, and a link to the map, with a total count at the top.
+Finally, it outputs the final listing of eligible Map of the Week contenders in order of oldest to newest with the the Map Name and Uploader, collaborators if there are any, a link to the map, and the age of the map in days; with a total count at the top.
 
 There are currently 4 commands:
 
 1. `/find-motw` - This does exactly as stated above and outputs the message only to the user running the command.
 2. `/display-find-motw` - The same as above but it displays to everyone in the channel it was run.
-3. `/set-channels` - Sets the primary and secondary channels to search when using Command 1 or 2.
-4. `/check-status` - Simple command that basically tells you if the channels are set without hitting the BeatSaver API
+3. `/set-channels` - Sets the primary and secondary channels to search when using Command 1 or 2. I would recommend restricting the use of this command within Discord to prevent accidental changes.
+4. `/check-status` - Simple command that basically tells you if the channels are set without hitting the BeatSaver API.
 
 ## Outside Use
 
