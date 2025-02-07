@@ -1,5 +1,4 @@
-// commands/set-channels.js
-const { SlashCommandBuilder } = require("discord.js");
+const { SlashCommandBuilder, MessageFlags } = require("discord.js");
 const guildSettings = require("../settings");
 
 module.exports = {
@@ -27,7 +26,7 @@ module.exports = {
 
     await interaction.reply({
       content: `Channels set:\nPrimary: ${primary}\nSecondary: ${secondary}`,
-      ephemeral: true,
+      flags: MessageFlags.Ephemeral,
     });
   },
 };

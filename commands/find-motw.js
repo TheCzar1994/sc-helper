@@ -2,7 +2,7 @@ function escapeMarkdown(text) {
   return text.replace(/([*_`~])/g, "\\$1");
 }
 
-const { SlashCommandBuilder } = require("discord.js");
+const { SlashCommandBuilder, MessageFlags } = require("discord.js");
 const guildSettings = require("../settings");
 
 module.exports = {
@@ -16,12 +16,12 @@ module.exports = {
       await interaction.reply({
         content:
           "Czar is messing with the settings again, please try again later! 🤖",
-        ephemeral: true,
+        flags: MessageFlags.Ephemeral,
       });
       return;
     }
 
-    await interaction.deferReply({ ephemeral: true });
+    await interaction.deferReply({ flags: MessageFlags.Ephemeral });
 
     const { primary, secondary } = guildSettings[guildId];
 

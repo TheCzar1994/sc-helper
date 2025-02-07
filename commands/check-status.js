@@ -1,4 +1,4 @@
-const { SlashCommandBuilder } = require("discord.js");
+const { SlashCommandBuilder, MessageFlags } = require("discord.js");
 const guildSettings = require("../settings");
 
 module.exports = {
@@ -12,14 +12,14 @@ module.exports = {
       await interaction.reply({
         content:
           "Czar is messing with the settings again, please try again later! 🤖",
-        ephemeral: true,
+        flags: MessageFlags.Ephemeral,
       });
       return;
     }
 
     await interaction.reply({
       content: "We all good, G! 🫡",
-      ephemeral: true,
+      flags: MessageFlags.Ephemeral,
     });
   },
 };
