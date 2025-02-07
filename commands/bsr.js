@@ -56,15 +56,31 @@ module.exports = {
       const arcViewerURL = `https://allpoland.github.io/ArcViewer/?id=${mapKey}`;
       const beatsaverURL = `https://beatsaver.com/maps/${mapKey}`;
 
+      const fields = [
+        { name: "ID", value: mapId, inline: true },
+        { name: "Uploader", value: uploaderName, inline: true },
+      ];
+
+      if (data.collaborators && data.collaborators.length > 0) {
+        const collaboratorsList = data.collaborators
+          .map((collab) => collab.name)
+          .join(", ");
+        fields.push({
+          name: "Collaborators",
+          value: collaboratorsList,
+          inline: true,
+        });
+      }
+
+      fields.push(
+        { name: "Uploaded", value: formattedDate, inline: true },
+        { name: "Description", value: description, inline: false }
+      );
+
       const embed = new EmbedBuilder()
         .setTitle(`${mapName}`)
         .setColor(0x0099ff)
-        .addFields(
-          { name: "ID", value: mapId, inline: true },
-          { name: "Uploader", value: uploaderName, inline: true },
-          { name: "Uploaded", value: formattedDate, inline: true },
-          { name: "Description", value: description, inline: false }
-        )
+        .addFields(...fields)
         .setThumbnail(coverURL);
 
       embed.setDescription(
