@@ -2,8 +2,8 @@ const { SlashCommandBuilder, EmbedBuilder } = require("discord.js");
 
 module.exports = {
   data: new SlashCommandBuilder()
-    .setName("map")
-    .setDescription("Retrieve a map card from BeatSaver.")
+    .setName("bsr")
+    .setDescription("Retrieve map info from BeatSaver.")
     .addStringOption((option) =>
       option
         .setName("key")
@@ -57,12 +57,12 @@ module.exports = {
           { name: "Uploaded", value: formattedDate, inline: true },
           {
             name: "Download",
-            value: `[Click here to download](${downloadURL})`,
+            value: `[${downloadURL}](${downloadURL})`,
             inline: false,
           },
           {
             name: "Preview in ArcViewer",
-            value: `[Click here to preview](${arcViewerURL})`,
+            value: `[${arcViewerURL}](${arcViewerURL})`,
             inline: false,
           }
         )
