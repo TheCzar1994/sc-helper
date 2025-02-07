@@ -1,4 +1,10 @@
-const { SlashCommandBuilder, EmbedBuilder } = require("discord.js");
+const {
+  SlashCommandBuilder,
+  EmbedBuilder,
+  ActionRowBuilder,
+  ButtonBuilder,
+  ButtonStyle,
+} = require("discord.js");
 
 module.exports = {
   data: new SlashCommandBuilder()
@@ -27,6 +33,7 @@ module.exports = {
       const data = await response.json();
       const mapId = data.id;
       const mapName = data.name;
+      const description = data.description;
       const uploaderName = data.uploader?.name || "Unknown";
       const uploadedDate = new Date(data.uploaded);
       const month = uploadedDate.getMonth() + 1;
@@ -47,7 +54,6 @@ module.exports = {
         downloadURL = data.versions[data.versions.length - 1].downloadURL;
       }
       const arcViewerURL = `https://allpoland.github.io/ArcViewer/?id=${mapKey}`;
-      const oneClickURL = `beatsaver://${mapKey}`;
       const beatsaverURL = `https://beatsaver.com/maps/${mapKey}`;
 
       const embed = new EmbedBuilder()
@@ -56,13 +62,14 @@ module.exports = {
         .addFields(
           { name: "ID", value: mapId, inline: true },
           { name: "Uploader", value: uploaderName, inline: true },
-          { name: "Uploaded", value: formattedDate, inline: true }
+          { name: "Uploaded", value: formattedDate, inline: true },
+          { name: "Description", value: description, inline: false }
         )
         .setThumbnail(coverURL);
 
       embed.setDescription(
-        `[**Download**](${downloadURL}) | [**OneClick Install**](<${oneClickURL}>)\n` +
-          `[**Preview in ArcViewer**](${arcViewerURL}) | [**BeatSaver**](${beatsaverURL})`
+        `[**BeatSaver**](${beatsaverURL}) | [**Download**](${downloadURL})\n` +
+          `[**Preview in ArcViewer**](${arcViewerURL})`
       );
 
       return interaction.editReply({ embeds: [embed] });
