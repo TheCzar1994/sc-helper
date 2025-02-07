@@ -12,15 +12,16 @@ module.exports = {
     ),
 
   async execute(interaction) {
+    await interaction.deferReply();
+
     const mapKey = interaction.options.getString("key");
     const url = `https://beatsaver.com/api/maps/id/${mapKey}`;
 
     try {
       const response = await fetch(url);
       if (!response.ok) {
-        return interaction.reply({
+        return interaction.editReply({
           content: `Could not find a map with key \`${mapKey}\`.`,
-          ephemeral: true,
         });
       }
       const data = await response.json();
@@ -51,12 +52,11 @@ module.exports = {
         )
         .setThumbnail(coverURL);
 
-      return interaction.reply({ embeds: [embed] });
+      return interaction.editReply({ embeds: [embed] });
     } catch (error) {
       console.error("Error fetching map data:", error);
-      return interaction.reply({
+      return interaction.editReply({
         content: "There was an error fetching the map data.",
-        ephemeral: true,
       });
     }
   },
