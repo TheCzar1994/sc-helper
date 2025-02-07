@@ -54,19 +54,13 @@ module.exports = {
         .addFields(
           { name: "ID", value: mapId, inline: true },
           { name: "Uploader", value: uploaderName, inline: true },
-          { name: "Uploaded", value: formattedDate, inline: true },
-          {
-            name: "Download",
-            value: `[${downloadURL}](${downloadURL})`,
-            inline: false,
-          },
-          {
-            name: "Preview in ArcViewer",
-            value: `[${arcViewerURL}](${arcViewerURL})`,
-            inline: false,
-          }
+          { name: "Uploaded", value: formattedDate, inline: true }
         )
         .setThumbnail(coverURL);
+
+      embed.setDescription(
+        `[Download](${downloadURL}) | [Preview in ArcViewer](${arcViewerURL})`
+      );
 
       return interaction.editReply({ embeds: [embed] });
     } catch (error) {
