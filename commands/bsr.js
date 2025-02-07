@@ -59,6 +59,7 @@ module.exports = {
       const fields = [
         { name: "ID", value: mapId, inline: true },
         { name: "Uploader", value: uploaderName, inline: true },
+        { name: "Uploaded", value: formattedDate, inline: true },
       ];
 
       if (data.collaborators && data.collaborators.length > 0) {
@@ -68,14 +69,11 @@ module.exports = {
         fields.push({
           name: "Collaborators",
           value: collaboratorsList,
-          inline: true,
+          inline: false,
         });
       }
 
-      fields.push(
-        { name: "Uploaded", value: formattedDate, inline: true },
-        { name: "Description", value: description, inline: false }
-      );
+      fields.push({ name: "Description", value: description, inline: false });
 
       const embed = new EmbedBuilder()
         .setTitle(`${mapName}`)
