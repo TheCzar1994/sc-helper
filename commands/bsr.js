@@ -47,6 +47,8 @@ module.exports = {
         downloadURL = data.versions[data.versions.length - 1].downloadURL;
       }
       const arcViewerURL = `https://allpoland.github.io/ArcViewer/?id=${mapKey}`;
+      const oneClickURL = `beatsaver://${mapKey}`;
+      const beatsaverURL = `https://beatsaver.com/maps/${mapKey}`;
 
       const embed = new EmbedBuilder()
         .setTitle(`${mapName}`)
@@ -59,7 +61,8 @@ module.exports = {
         .setThumbnail(coverURL);
 
       embed.setDescription(
-        `[Download](${downloadURL}) | [Preview in ArcViewer](${arcViewerURL})`
+        `[**Download**](${downloadURL}) | [**OneClick Install**](${oneClickURL})\n` +
+          `[**Preview in ArcViewer**](${arcViewerURL}) | [**BeatSaver**](${beatsaverURL})`
       );
 
       return interaction.editReply({ embeds: [embed] });
