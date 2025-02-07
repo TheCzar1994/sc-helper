@@ -42,13 +42,29 @@ module.exports = {
         coverURL = data.versions[data.versions.length - 1].coverURL;
       }
 
+      let downloadURL = null;
+      if (Array.isArray(data.versions) && data.versions.length > 0) {
+        downloadURL = data.versions[data.versions.length - 1].downloadURL;
+      }
+      const arcViewerURL = `https://allpoland.github.io/ArcViewer/?id=${mapKey}`;
+
       const embed = new EmbedBuilder()
-        .setTitle(`Map Card: ${mapName}`)
+        .setTitle(`${mapName}`)
         .setColor(0x0099ff)
         .addFields(
           { name: "ID", value: mapId, inline: true },
           { name: "Uploader", value: uploaderName, inline: true },
-          { name: "Uploaded", value: formattedDate, inline: true }
+          { name: "Uploaded", value: formattedDate, inline: true },
+          {
+            name: "Download",
+            value: `[Click here to download](${downloadURL})`,
+            inline: false,
+          },
+          {
+            name: "Preview in ArcViewer",
+            value: `[Click here to preview](${arcViewerURL})`,
+            inline: false,
+          }
         )
         .setThumbnail(coverURL);
 
