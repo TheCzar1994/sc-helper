@@ -61,7 +61,7 @@ module.exports = {
         .setThumbnail(coverURL);
 
       embed.setDescription(
-        `[**Download**](${downloadURL}) | [**OneClick Install**](${oneClickURL})\n` +
+        `[**Download**](${downloadURL}) | [**OneClick Install**](<${oneClickURL}>)\n` +
           `[**Preview in ArcViewer**](${arcViewerURL}) | [**BeatSaver**](${beatsaverURL})`
       );
 
