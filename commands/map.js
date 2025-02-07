@@ -1,0 +1,63 @@
+const { SlashCommandBuilder, EmbedBuilder } = require("discord.js");
+
+module.exports = {
+  data: new SlashCommandBuilder()
+    .setName("map")
+    .setDescription("Retrieve a map card from BeatSaver.")
+    .addStringOption((option) =>
+      option
+        .setName("key")
+        .setDescription("The map key to search for (e.g., ff9)")
+        .setRequired(true)
+    ),
+
+  async execute(interaction) {
+    const mapKey = interaction.options.getString("key");
+    const url = `https://beatsaver.com/api/maps/id/${mapKey}`;
+
+    try {
+      const response = await fetch(url);
+      if (!response.ok) {
+        return interaction.reply({
+          content: `Could not find a map with key \`${mapKey}\`.`,
+          ephemeral: true,
+        });
+      }
+      const data = await response.json();
+      const mapId = data.id;
+      const mapName = data.name;
+      const uploaderName = data.uploader?.name || "Unknown";
+      const uploadedDate = new Date(data.uploaded);
+      const month = uploadedDate.getMonth() + 1;
+      const day =
+        uploadedDate.getDate() < 10
+          ? `0${uploadedDate.getDate()}`
+          : uploadedDate.getDate();
+      const year = uploadedDate.getFullYear();
+      const formattedDate = `${month}-${day}-${year}`;
+
+      let coverURL = null;
+      if (Array.isArray(data.versions) && data.versions.length > 0) {
+        coverURL = data.versions[data.versions.length - 1].coverURL;
+      }
+
+      const embed = new EmbedBuilder()
+        .setTitle(`Map Card: ${mapName}`)
+        .setColor(0x0099ff)
+        .addFields(
+          { name: "ID", value: mapId, inline: true },
+          { name: "Uploader", value: uploaderName, inline: true },
+          { name: "Uploaded", value: formattedDate, inline: true }
+        )
+        .setThumbnail(coverURL);
+
+      return interaction.reply({ embeds: [embed] });
+    } catch (error) {
+      console.error("Error fetching map data:", error);
+      return interaction.reply({
+        content: "There was an error fetching the map data.",
+        ephemeral: true,
+      });
+    }
+  },
+};
