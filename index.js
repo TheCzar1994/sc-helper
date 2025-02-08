@@ -58,7 +58,7 @@ client.once("ready", () => {
 client.on("messageCreate", (message) => {
   if (message.author.bot) return;
   if (message.mentions.has(client.user)) {
-    message.react("👋").catch(console.error);
+    message.react("🍔").catch(console.error);
   }
 });
 
