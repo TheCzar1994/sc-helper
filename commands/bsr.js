@@ -76,8 +76,7 @@ module.exports = {
         .setThumbnail(coverURL);
 
       embed.setDescription(
-        `[**BeatSaver**](${beatsaverURL}) | [**Download**](${downloadURL})\n` +
-          `[**Preview in ArcViewer**](${arcViewerURL})`
+        `[**BeatSaver**](${beatsaverURL}) | [**Download**](${downloadURL}) | [**Preview in ArcViewer**](${arcViewerURL})`
       );
 
       return interaction.editReply({ embeds: [embed] });
