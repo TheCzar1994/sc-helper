@@ -11,7 +11,7 @@ module.exports = {
     if (!guildSettings[guildId]) {
       await interaction.reply({
         content:
-          "Czar is messing with the settings again, please try again later! 🤖",
+          "The server was recently reset or an update was made.\nPlease wait a couple minutes and try again.",
         flags: MessageFlags.Ephemeral,
       });
       return;
